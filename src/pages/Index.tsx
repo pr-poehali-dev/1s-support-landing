@@ -3,10 +3,15 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Icon from "@/components/ui/icon";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Index = () => {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const formRef = useRef<HTMLDivElement>(null);
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,12 +76,12 @@ const Index = () => {
               Обновления, резервные копии, помощь экспертов — в одном фиксированном платеже
             </p>
             <div className="flex gap-4 pt-4">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-semibold">
+              <Button size="lg" onClick={scrollToForm} className="bg-accent hover:bg-accent/90 text-white font-semibold">
                 Подключить сопровождение
               </Button>
             </div>
           </div>
-          <Card className="bg-white/95 backdrop-blur animate-fade-in">
+          <Card className="bg-white/95 backdrop-blur animate-fade-in" ref={formRef}>
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-primary mb-6">Оставить заявку</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -185,7 +190,7 @@ const Index = () => {
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full bg-accent hover:bg-accent/90 text-white font-semibold">
+                <Button onClick={scrollToForm} className="w-full bg-accent hover:bg-accent/90 text-white font-semibold">
                   Выбрать план
                 </Button>
               </CardContent>
@@ -214,7 +219,7 @@ const Index = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white font-semibold">
+                <Button onClick={scrollToForm} variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white font-semibold">
                   Узнать подробнее
                 </Button>
               </CardContent>
